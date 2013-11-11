@@ -20,9 +20,9 @@ app.mapHover = function (evt) {
 	evt.stopPropagation();
 	
 	var dataLang;
-	if (evt.target.dataset) {
+	if (evt.target.dataset) {	// Chrome, Safari
 		dataLang = evt.target.dataset.language;
-	}else if (evt.target.getAttribute('data-language')) {
+	}else if (evt.target.getAttribute('data-language')) {	// Firefox, IE, Opera
 		dataLang = evt.target.getAttribute('data-language');
 	}
 	
@@ -47,9 +47,9 @@ app.translate = function (evt) {
    	}
    	
 	var dstlang;
-	if (evt.target.dataset) {
+	if (evt.target.dataset) {	// Chrome, Safari
 		dstlang = evt.target.dataset.lang;
-	}else if (evt.target.getAttribute('data-lang')) {
+	}else if (evt.target.getAttribute('data-lang')) {	// Firefox, IE, Opera
 		dstlang = evt.target.getAttribute('data-lang');
 	}
 	
