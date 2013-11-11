@@ -72,7 +72,6 @@ app.translate = function (evt) {
    		url: serviceUrl, 
    		crossDomain: true
    	}).done(function (data) {
-   		console.log(data);
    		var tr = data.responseData.translatedText;
    		if (!tr) {
    			tr = 'Oops, looks like this language isn\'t supported yet!';
