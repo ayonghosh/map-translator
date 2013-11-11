@@ -19,15 +19,22 @@ app.mapHover = function (evt) {
 	}
 	evt.stopPropagation();
 	
-	tooltip.style.display = 'block';
-	tooltip.innerHTML = '<b>' + evt.target.id + '</b><br>(' + evt.target.dataset.language + ')';
+	var dataLang;
+	if (evt.target.dataset) {
+		dataLang = evt.target.dataset.language;
+	}else if (evt.target.getAttribute('data-language')) {
+		dataLang = evt.target.getAttribute('data-language');
+	}
+	
+	tooltip.innerHTML = '<b>' + evt.target.id + '</b><br>(' + dataLang + ')';
 	tooltip.style.left = evt.clientX - 10 + 'px';
-	tooltip.style.top = evt.clientY - 50 + 'px';
+	tooltip.style.top = evt.clientY - 70 + 'px';
+	tooltip.style.display = 'block';
 };
 
 app.mouseExit = function (evt) {
 	var toElem = evt.relatedTarget || evt.toElement;
-	if (toElem.id === 'map') {
+	if (!toElem || toElem.id === 'map') {
 		tooltip.style.display = 'none';
 	}
 };
@@ -39,7 +46,13 @@ app.translate = function (evt) {
    		return;
    	}
    	
-	var dstlang = evt.target.dataset.lang;
+	var dstlang;
+	if (evt.target.dataset) {
+		dstlang = evt.target.dataset.lang;
+	}else if (evt.target.getAttribute('data-lang')) {
+		dstlang = evt.target.getAttribute('data-lang');
+	}
+	
 	if (!dstlang) {
 		app.showTranslation('Sorry, this region is not supported at the moment!');
 		return;
@@ -58,6 +71,7 @@ app.translate = function (evt) {
    	$.ajax({
    		url: serviceUrl
    	}).done(function (data) {
+   		console.log(data);
    		var tr = data.responseData.translatedText;
    		if (!tr) {
    			tr = 'Oops, looks like this language isn\'t supported yet!';
