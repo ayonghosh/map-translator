@@ -69,7 +69,8 @@ app.translate = function (evt) {
 	'&langpair=en|' + dstlang;
    
    	$.ajax({
-   		url: serviceUrl
+   		url: serviceUrl, 
+   		crossDomain: true
    	}).done(function (data) {
    		console.log(data);
    		var tr = data.responseData.translatedText;
